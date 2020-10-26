@@ -26,6 +26,8 @@ import (
 // HTMLFlags control optional behavior of HTML renderer.
 type HTMLFlags int
 
+// now image tag flag
+
 // HTML renderer configuration options.
 const (
 	HTMLFlagsNone           HTMLFlags = 0
@@ -363,8 +365,40 @@ func itemOpenCR(node *Node) bool {
 	return !ld.Tight && ld.ListFlags&ListTypeDefinition == 0
 }
 
+func showTest(node *Node) {
+	if node.LinkData.Title != nil {
+		fmt.Print("node link data title is ")
+		fmt.Println(node.LinkData.Title)
+	}
+	if node.LinkData.Destination != nil {
+		fmt.Print("node link data Destination is ")
+		fmt.Println(node.LinkData.Destination)
+	}
+}
+
 func skipParagraphTags(node *Node) bool {
+	if node.Next != nil {
+		fmt.Print("node next type is ")
+		fmt.Println(node.Next.Type, string(node.Next.content))
+		showTest(node.Next)
+	}
+	fmt.Print("node now type is  ")
+	fmt.Println(node.Type, string(node.content))
+	showTest(node)
+	if node.Prev != nil {
+		fmt.Print("node prev type is ")
+		fmt.Println(node.Prev.Type, string(node.Prev.content))
+		showTest(node.Prev)
+	}
+
+	if node.Parent != nil {
+		fmt.Print(" node parent is ")
+		fmt.Println(node.Parent.Type, string(node.Parent.content))
+		showTest(node.Parent)
+	}
+
 	grandparent := node.Parent.Parent
+	fmt.Println(grandparent)
 	if grandparent == nil || grandparent.Type != List {
 		return false
 	}
