@@ -133,6 +133,9 @@ var blockTags = map[string]struct{}{
 	"progress":   {},
 	"section":    {},
 	"video":      {},
+
+	// self add tag
+	"img": {},
 }
 
 // Renderer is the rendering interface. This is mostly of interest if you are
